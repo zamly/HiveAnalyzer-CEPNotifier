@@ -16,17 +16,25 @@ import java.util.Date;
  */
 public class CEPNotifier implements HiveAnalyzer {
 
-    public static final String STREAM_NAME = "org.wso2.lambda.notifier";
-    public static final String VERSION = "1.0.0";
+    public static String STREAM_NAME = "";
+    public static String VERSION = "";
     private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(CEPNotifier.class);
 
     @Override
     public void execute(AnalyzerContext analyzerContext) {
 
         String timestampNow = analyzerContext.getProperty("TIMESTAMP_SCRIPT_STARTED");
-        //String timestamp = analyzerContext.getParameters().get("timestamp");
+        String timestamp = analyzerContext.getParameters().get("timestamp");
 
-        logger.info("testing......."+ timestampNow);
+        if (!analyzerContext.getParameters().get("stream").equals(null)) {
+            STREAM_NAME = analyzerContext.getParameters().get("stream");
+        }
+
+        if (!analyzerContext.getParameters().get("version").equals(null)) {
+           VERSION = analyzerContext.getParameters().get("version");
+        }
+
+        //logger.info("testing......."+ timestampNow);
         long nowTimestamp = Long.parseLong(timestampNow);
 
         try {
