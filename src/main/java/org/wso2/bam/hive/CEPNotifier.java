@@ -135,7 +135,6 @@ public class CEPNotifier implements HiveAnalyzer {
 
         setTrustStoreParams();
 
-        //Agent agent = new Agent();
         DataPublisher dataPublisherCEP = new DataPublisher("tcp://"+cepHost+":"+cepPort, username, password);
 
         String streamId = getStreamID(dataPublisherCEP);
